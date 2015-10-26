@@ -1,7 +1,7 @@
 # BigData
 
-### Week 1 – UNIX, Git and EC2
-### Week 2 – Python
+#### Week 1 – UNIX, Git and EC2
+##### Week 2 – Python
 ### Week 3 – Python Libraries
 ### Week 4 – DBSCAN (and how to give peer-feedback)
 ### Week 5 – SQL and NoSQL
