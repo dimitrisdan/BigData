@@ -1,4 +1,4 @@
-# BigData
+# 02807 Computational Tools for Big Data
 
 **Week 1 – UNIX, Git and EC2**
 
