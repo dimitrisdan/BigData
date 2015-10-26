@@ -1,5 +1,5 @@
 # 02807 Computational Tools for Big Data
-###### Weekly exercises for the Technical University of Denmark
+*Weekly exercises for the Technical University of Denmark*
 
 **Week 1 – UNIX, Git and EC2**
 
