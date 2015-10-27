@@ -1,4 +1,5 @@
-# 02807 Computational Tools for Big Data @ DTU
+# 02807 Computational Tools for Big Data 
+### @ DTU
 *Weekly exercises*
 
 This course gives a short and intensive introduction to a large set of computational tools and techniques for dealing with large data. For example: The UNIX terminal, version control, Python, MapReduce, Apache Spark and Graph databases.
