@@ -1,0 +1,7 @@
+ tr -c '[:alnum:]' '[\n*]' < test.txt | sort | uniq -c | sort -nr | head  -10
+
+ $ grep -v '[0-9]\{5\}$' cars.txt >> filtered_cars.txt
+
+ $ tr -c '[:alnum:]' '[\n*]' < shakespeare.txt | sort | uniq >> temp
+
+$ comm -23 <(tr 'a-z' 'A-Z' < temp|sort|uniq) <(tr 'a-z' 'A-Z'< dict|sort|uniq)| wc -l
