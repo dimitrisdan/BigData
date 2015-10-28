@@ -1,4 +1,11 @@
+# Norwich Database Testing #
+# DB : http://ulfaslak.com/files/northwind.db #
+#######################
+# SQL IMPLEMENETATION #
+#######################
+
 import sqlite3
+import pymongo
 
 # DB Connection
 conn = sqlite3.connect('northwind.db')
@@ -27,3 +34,17 @@ print "\nTOTAL NUMBER OF EMPLOYEES BY DEPARTMENT"
 
 for total in empl_dpt:
 	print totalc.close()
+
+#########################
+# NoSQL IMPLEMENETATION #
+#########################
+
+client = pymongo.MongoClient()
+db = client.Northwind
+orders = db.orders
+products = db.products
+customers = db.customers
+
+order_details = db[’order-details’]
+
+print order_details

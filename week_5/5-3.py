@@ -1,4 +1,11 @@
+# Norwich Database Testing #
+# DB : http://ulfaslak.com/files/northwind.db #
+#######################
+# SQL IMPLEMENETATION #
+#######################
+
 import sqlite3
+import pymongo
 
 # DB Connection
 conn = sqlite3.connect('northwind.db')
@@ -33,3 +40,20 @@ products = c.fetchall()
 
 for product in products:
     print product
+
+#########################
+# NoSQL IMPLEMENETATION #
+#########################
+
+product_details = \
+	order_details.aggregate(
+		[{"$match":{"OrderID" : { "$in": orders.find({"CustomerID" : "ALFKI"}).distinct("OrderID")}}},
+		 {"$group": {"_id": "$OrderID", "productID": { "$push": "$ProductID" }, "count": {"$sum": 1}}},
+		 { "$match" : { "count" : { "$gte": 2 } } }])
+
+for product_detail in product_details:
+	print "\n"
+	print "order id: {} has products:".format(product_detail["_id"])
+
+	for product in products.find({"ProductID" : { "$in": product_detail["productID"] }}):
+		print unicode("{} with ID:{}").format(product["ProductName"],product["ProductID"])
