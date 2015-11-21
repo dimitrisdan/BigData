@@ -3,14 +3,16 @@ from __future__ import division
 import mmh3
 import numpy as np
 
-print mmh3.hash("hahahahha") % 1000
 
 import json
 import os
 from sklearn.feature_extraction.text import CountVectorizer
 import numpy as np
 from scipy import sparse
+import re
 from pprint import pprint
+from scipy.sparse import csr_matrix
+
 
 from sklearn.ensemble import RandomForestClassifier
 
@@ -30,16 +32,44 @@ for file in os.listdir("Data"):
 
                 body.append(file['body'])
 
-vectorizer = CountVectorizer(body,binary=True)
-bow = vectorizer.fit_transform(body)
+class featurehash:
 
-bow = bow.transpose().toarray()
-np.random.shuffle(bow)
-bow = sparse.csc_matrix(bow)
+    def __init__(self):
 
+        self.hashed_document = []
+
+
+    def add_document(self,string):
+
+        hasharray = np.zeros(1000)
+        p = re.compile(ur'\b[a-zA-Z][a-zA-Z]+\b')
+        words = re.findall(p, string.lower())
+
+        for word in words:
+            index = mmh3.hash(word,seed=21) % 1000
+            hasharray[index] = hasharray[index] + 1
+
+        self.hashed_document.append(hasharray)
+
+    def getMatrix(self):
+
+        return csr_matrix(self.hashed_document)
+
+ft = featurehash()
+
+for doc in body:
+   ft.add_document(doc)
+
+bow = ft.getMatrix()
 print bow.shape
-numFeatures = bow.shape[0]
-numArticles = bow.shape[1]
+forest = RandomForestClassifier(n_estimators = 50)
 
-print bow.getcol(0)
+forest.fit(bow[:8301],topic[:8301])
+
+pred = forest.predict(bow[8301:])
+
+result = pred == np.array(topic[8301:])
+
+print np.sum(result)/len(result)
+
 

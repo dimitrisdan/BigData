@@ -4,6 +4,7 @@ import os
 from sklearn.feature_extraction.text import CountVectorizer
 import numpy as np
 from pprint import pprint
+import pickle
 
 from sklearn.ensemble import RandomForestClassifier
 
@@ -24,14 +25,13 @@ for file in os.listdir("Data"):
                 body.append(file['body'])
 
 
-vectorizer = CountVectorizer(body)
-bow = vectorizer.fit_transform(body)
+bow = pickle.load( open( "bow.p", "rb" ) )
 
 forest = RandomForestClassifier(n_estimators = 50)
 
-forest.fit(bow.tocsr()[:8301],topic[:8301])
+forest.fit(bow[:8301],topic[:8301])
 
-pred = forest.predict(bow.tocsr()[8301:])
+pred = forest.predict(bow[8301:])
 
 result = pred == np.array(topic[8301:])
 
